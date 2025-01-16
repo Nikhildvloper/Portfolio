@@ -3,20 +3,30 @@ let count = 0;
 let index = 0;
 let currentText = "";
 let letter = "";
+let isDeleting = false;
 
 (function type() {
-    if (count === texts.length) {
-        count = 0;
+    if (!isDeleting && index === 0) {
+        currentText = texts[count];
     }
-    currentText = texts[count];
-    letter = currentText.slice(0, ++index);
+
+    if (isDeleting) {
+        letter = currentText.slice(0, --index);
+    } else {
+        letter = currentText.slice(0, ++index);
+    }
 
     document.querySelector(".typing").textContent = letter;
-    if (letter.length === currentText.length) {
-        count++;
-        index = 0;
-        setTimeout(type, 2000); // Pause before changing to the next text
-    } else {
-        setTimeout(type, 200); // Typing speed
+
+    let typeSpeed = isDeleting ? 100 : 200;
+
+    if (!isDeleting && letter.length === currentText.length) {
+        typeSpeed = 2000;
+        isDeleting = true;
+    } else if (isDeleting && letter.length === 0) {
+        isDeleting = false;
+        count = (count + 1) % texts.length;
     }
+
+    setTimeout(type, typeSpeed);
 })();
