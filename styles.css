@@ -55,11 +55,10 @@ header nav ul li a:hover {
 }
 
 .intro-content img {
-    width: 200px;
-    height: auto;
+    width: 250px;
+    height: 350px;
     border-radius: 50%;
     object-fit: cover;
-    aspect-ratio: 1 / 1;
     margin-bottom: 1rem;
 }
 
